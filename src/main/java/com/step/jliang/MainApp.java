@@ -1,18 +1,20 @@
 package com.step.jliang;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * A Camel Application
+ *
  */
 public class MainApp {
 
-    /**
-     * A main() so we can easily run these routing rules in our IDE
-     */
+    private static final Logger logger = LoggerFactory.getLogger(MainApp.class);
+
     public static void main(String... args) throws Exception {
         //Main main = new Main();
        //main.addRouteBuilder(new MyRouteBuilder());
@@ -32,6 +34,7 @@ public class MainApp {
 
         String[] arr = stream.toArray(String[]::new);
 
+        logger.info("list:{}", list);
         System.out.println(list);
         System.out.println(Arrays.toString(arr));
     }

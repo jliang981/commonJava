@@ -1,4 +1,4 @@
-package com.mogujie.haoliang.zookeeper;
+package com.step.jliang.zookeeper;
 
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;

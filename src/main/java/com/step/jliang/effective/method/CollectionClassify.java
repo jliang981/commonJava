@@ -1,4 +1,4 @@
-package com.step.effective.method;
+package com.step.jliang.effective.method;
 
 import java.util.*;
 
