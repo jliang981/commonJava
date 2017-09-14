@@ -4,12 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mogujie.haoliang</groupId>
-    <artifactId>haoliang.study</artifactId>
+    <groupId>com.step.jliang</groupId>
+    <artifactId>jliang.study</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>haoliang-midware</module>
+        <module>jliang-midware</module>
     </modules>
 
     <name>A Camel Route</name>
