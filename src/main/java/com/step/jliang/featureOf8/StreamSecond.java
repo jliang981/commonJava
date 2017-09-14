@@ -86,4 +86,16 @@ public class StreamSecond {
                 get());
     }
 
+    private static final List<String> STOP_WORDS = Arrays.asList("AND", "OR", "BY", "OF");
+
+    @Test
+    public void acronym() {
+        String collect = Arrays
+                .stream("i am and tyu".toUpperCase().split("\\s"))
+                .filter(word -> !STOP_WORDS.contains(word))
+                .map(w -> String.valueOf(w.charAt(0)))
+                .collect(Collectors.joining("|", "prefix", "subfix"));
+        System.out.println(collect);
+    }
+
 }
