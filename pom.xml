@@ -10,9 +10,12 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>jliang-midware</module>
+        <module>java-base</module>
+        <module>lgroovy</module>
+        <module>jliang-spring</module>
     </modules>
 
-    <name>A Camel Route</name>
+    <name>jliang step</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -88,7 +91,6 @@
     </dependencies>
 
     <build>
-        <defaultGoal>install</defaultGoal>
 
         <plugins>
             <plugin>
@@ -106,17 +108,6 @@
                 <version>3.0.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-
-            <!-- Allows the example to be run via 'mvn compile exec:java' -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.5.0</version>
-                <configuration>
-                    <mainClass>com.step.jliang.MainApp</mainClass>
-                    <includePluginDependencies>false</includePluginDependencies>
                 </configuration>
             </plugin>
 
