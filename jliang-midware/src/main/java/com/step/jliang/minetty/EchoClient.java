@@ -2,6 +2,7 @@ package com.step.jliang.minetty;
 
 import com.step.jliang.minetty.handler.EchoClientHandler;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -36,7 +37,9 @@ public class EchoClient {
                         }
                     });
             ChannelFuture channelFuture = b.connect().sync();
-            channelFuture.channel().closeFuture().sync();
+//            channelFuture.channel().closeFuture().sync();
+            Channel channel = channelFuture.channel();
+            Thread.sleep(100000);
         } finally {
             nioEventLoopGroup.shutdownGracefully().sync();
         }

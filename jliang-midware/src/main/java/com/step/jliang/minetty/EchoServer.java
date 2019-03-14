@@ -3,6 +3,7 @@ package com.step.jliang.minetty;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -30,10 +31,13 @@ public class EchoServer {
 
     public void start() throws Exception {
         EchoServerHandler echoServerHandler = new EchoServerHandler();
-        NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup();
+        // Configure the server.处理连接请求
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        // 处理连接的io操作
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(nioEventLoopGroup)
+            serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .localAddress(new InetSocketAddress(port))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
@@ -43,10 +47,11 @@ public class EchoServer {
                         }
                     });
             ChannelFuture channelFuture = serverBootstrap.bind().sync();
-            channelFuture.channel().closeFuture().sync();
-
+//            channelFuture.channel().closeFuture().sync();
+            Thread.sleep(100000);
         } finally {
-            nioEventLoopGroup.shutdownGracefully().sync();
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
         }
     }
 }

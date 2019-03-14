@@ -1,0 +1,14 @@
+.idea/*
+*.iml
+target
+.settings
+.classpath
+.project
+.DS_Store
+*.data
+logs
+Makefile
+*.log
+discoverclient/*
+*/discoverclient/*
+CATALINA_APPLOG_IS_UNDEFINED/*
