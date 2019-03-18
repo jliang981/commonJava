@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -54,17 +55,9 @@ public class TestObservable {
     }
 
     private static void testObservable() {
-        Observable mObservable = Observable.create(new ObservableOnSubscribe<Integer>() {
-            @Override
-            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+        Observable mObservable = Observable.fromCallable(() -> {
                 System.out.println("1--------" + Thread.currentThread().getName());
-                e.onNext(1);
-                System.out.println("2--------" + Thread.currentThread().getName());
-                e.onNext(2);
-                e.onNext(3);
-                e.onNext(4);
-                e.onComplete();
-            }
+                return 1;
         });
 
         Observer mObserver = new Observer<Object>() {
@@ -77,7 +70,7 @@ public class TestObservable {
 
             @Override
             public void onNext(Object value) {
-                System.out.println("observer receive: " + value + "--------" + Thread.currentThread().getName());
+                System.out.println("observer receive: " + value + "------observer: " + Thread.currentThread().getName());
             }
 
             @Override
@@ -91,11 +84,20 @@ public class TestObservable {
             }
         };
 
-        mObservable.subscribeOn(SCHEDULER).subscribe(mObserver);
-        mObservable.subscribeOn(Schedulers.newThread()).observeOn(SCHEDULER).subscribe(mObserver);
-        mObservable.observeOn(SCHEDULER).map(t -> t + "0 " + Thread.currentThread().getName())
+//        mObservable.subscribeOn(SCHEDULER).subscribe(mObserver);
+//        mObservable.subscribeOn(Schedulers.newThread()).observeOn(SCHEDULER).subscribe(mObserver);
+        mObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(SCHEDULER)
+                // 在SCHEDULER里执行
+                .map(t -> t + " first map: " + Thread.currentThread().getName())
                 .observeOn(Schedulers.newThread())
-                .subscribe(mObserver);
+                .map(t -> t + " second map: " + Thread.currentThread().getName()) // 在Schedulers.newThread执行
+                .doOnNext(t -> {
+                    System.out.println("do on next: " + Thread.currentThread().getName());
+                })
+                .doFinally(() -> {
+                    System.out.println("do finally.");
+                }).subscribe(mObserver);
 
     }
 
