@@ -1,5 +1,6 @@
 package com.step.jliang.web.controller;
 
+import com.step.jliang.helper.SelectionHelper;
 import com.step.jliang.service.FirstService;
 import com.step.jliang.service.ScopeDemoService;
 import com.step.jliang.util.SpringContextUtil;
@@ -38,6 +39,16 @@ public class Index {
         Map<String, Object> map = new HashMap<>();
         map.put("hello", "请先登录呦");
         return map;
+    }
+
+    @RequestMapping("/testMemory")
+    public String memory() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println("循环创建次数：" + i);
+            new SelectionHelper().build();
+        }
+        System.gc();
+        return "success";
     }
 
 }

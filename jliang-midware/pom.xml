@@ -14,6 +14,7 @@
     <properties>
         <zookeeper.version>3.4.6</zookeeper.version>
         <rxjava.version>2.0.7</rxjava.version>
+        <disruptor.version>3.3.4</disruptor.version>
     </properties>
 
     <dependencies>
@@ -74,6 +75,20 @@
             <artifactId>hystrix-core</artifactId>
             <version>1.5.18</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>${disruptor.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
