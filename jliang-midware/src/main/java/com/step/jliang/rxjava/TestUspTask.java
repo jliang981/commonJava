@@ -35,6 +35,7 @@ public class TestUspTask {
         Semaphore semaphore = new Semaphore(1);
         // 通过信号量来实现处理完成通知主线程的机制
         semaphore.acquire();
+        // observeOn只会绑定一个线程，这个Observable里面的所有元素的后续动作，只会在这个线程上执行。
         Observable.fromIterable(taskList).subscribeOn(Schedulers.newThread()).observeOn(SCHEDULER)
                 .map(task -> {
                     // 任务最好使用 try catch 包装，防止出错后影响其他任务。
